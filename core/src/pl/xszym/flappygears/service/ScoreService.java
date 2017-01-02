@@ -1,11 +1,13 @@
 package pl.xszym.flappygears.service;
 
-import java.util.Hashtable;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Json;
+
+import pl.xszym.flappygears.FlappeGears;
 
 public class ScoreService {
 
@@ -14,30 +16,38 @@ public class ScoreService {
 	public final static String GAME_BESTSCORE = "com.xszym.gamespicegears.prefs.bestscore";
 
 	private int points;
-	private Array<ScorePlayerService> scorePlayers;
 	private Preferences prefs;
-
-	Hashtable<String, String> hashTable = new Hashtable<String, String>();
-
-	Json json = new Json();
-
+	
+	
+	
 	public ScoreService() {
 		init();
 	}
 
 	private void init() {
 		prefs = Gdx.app.getPreferences(GAME_PREFS);
-		// scorePlayers = new Array<ScorePlayerService>();
-		// hashTable.put("test", json.toJson(scorePlayers));
-
+		
+		
 	}
 
 	public void addPlayerToScoreTable(String name, int team, int score) {
-//		scorePlayers.add(new ScorePlayerService(name, team, score));
-//		System.out.println(scorePlayers.get(0).getName());
-//		System.out.println(scorePlayers.get(0).getScore());
-//		System.out.println(hashTable.get(0));
+		System.err.println(FlappeGears.BESTPLAYERS.size());
+		FlappeGears.BESTPLAYERS.put(name, score);
+		System.err.println(FlappeGears.BESTPLAYERS);
+		
+		TreeMap<String, Integer> sortedMap = sortMapByValue(FlappeGears.BESTPLAYERS);  
+		System.out.println(sortedMap);
 	}
+ 
+	public static TreeMap<String, Integer> sortMapByValue(HashMap<String, Integer> map){
+		Comparator<String> comparator = new ValueComparator(map);
+		//TreeMap is a map sorted by its keys. 
+		//The comparator is used to sort the TreeMap by keys. 
+		TreeMap<String, Integer> result = new TreeMap<String, Integer>(comparator);
+		result.putAll(map);
+		return result;
+	}
+	
 
 	public void addPoints(int pointsToAdd) {
 		points += pointsToAdd;
@@ -60,9 +70,6 @@ public class ScoreService {
 
 	public void saveCurrentGamestate() {
 		prefs.putInteger(GAME_SCORE, points);
-		String serializedInts = Gdx.app.getPreferences(GAME_PREFS).getString(GAME_BESTSCORE);
-		ScorePlayerService deserializedInts = json.fromJson(ScorePlayerService.class, serializedInts);
-		prefs.put(hashTable);
 		prefs.flush();
 	}
 

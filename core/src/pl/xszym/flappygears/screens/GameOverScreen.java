@@ -1,5 +1,7 @@
 package pl.xszym.flappygears.screens;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import pl.xszym.flappygears.FlappeGears;
 import pl.xszym.flappygears.service.ScoreService;
@@ -17,24 +19,19 @@ public class GameOverScreen extends AbstractScreen {
 
 	@Override
 	protected void init() {
-		gameOverScoreLabel = new GameLabel();
+		
 		scoreService = new ScoreService();
 		
-		gameOverScoreLabel.setPosition(FlappeGears.WIDTH/2, FlappeGears.HEIGHT/2);
-		gameOverScoreLabel.setText("Your points: " + scoreService.getPoints());
-		stage.addActor(gameOverScoreLabel);
+		initGameOverScoreLabel();
+		int i = new Random().nextInt();
+		scoreService.addPlayerToScoreTable("Player " + i, 5883 , scoreService.getPoints());
 		
-		scoreService.addPlayerToScoreTable("Test",5883, scoreService.getPoints());
 	}
 	
-	private void initTouched() {
-		if (Gdx.input.isTouched()) {
-			game.setScreen(new MenuScreen(game));
 
-		}
-
-	}
 	
+
+
 	@Override
 	public void render(float delta) {
 		
@@ -42,9 +39,27 @@ public class GameOverScreen extends AbstractScreen {
 		
 		initTouched();
 		
+		drawStage();
+		
+	}
+	
+	private void drawStage() {
 		spriteBatch.begin();
 		stage.draw();
 		spriteBatch.end();
+		
 	}
 
+	private void initTouched() {
+		if (Gdx.input.isTouched()) {
+			game.setScreen(new MenuScreen(game));
+		}
+	}
+	
+	private void initGameOverScoreLabel() {
+		gameOverScoreLabel = new GameLabel();
+		gameOverScoreLabel.setText("Your points: " + scoreService.getPoints());
+		gameOverScoreLabel.setPosition(FlappeGears.WIDTH/2 - 40,FlappeGears.HEIGHT/2);
+		stage.addActor(gameOverScoreLabel);
+	}
 }

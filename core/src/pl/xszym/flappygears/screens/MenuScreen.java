@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import pl.xszym.flappygears.FlappeGears;
 
-
 public class MenuScreen extends AbstractScreen {
 
 	private Texture bg;
@@ -23,9 +22,7 @@ public class MenuScreen extends AbstractScreen {
 	private void initTouched() {
 		if (Gdx.input.isTouched()) {
 			game.setScreen(new PlayScreen(game));
-
 		}
-
 	}
 
 	@Override
@@ -38,6 +35,5 @@ public class MenuScreen extends AbstractScreen {
 		spriteBatch.end();
 
 	}
-
 
 }

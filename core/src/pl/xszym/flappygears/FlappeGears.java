@@ -1,5 +1,8 @@
 package pl.xszym.flappygears;
 
+import java.util.HashMap;
+import java.util.TreeSet;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,12 +23,14 @@ public class FlappeGears extends Game {
 
 	public static Texture WALL_GEAR_PNG_TEKSTURA;
 	public static Texture TUBE_PNG_TEKSTURA;
+	public static HashMap BESTPLAYERS; 
 
 	@Override
 	public void create() {
 		this.setScreen(new MenuScreen(this));
 		WALL_GEAR_PNG_TEKSTURA = new Texture("wallgear.png");
 		TUBE_PNG_TEKSTURA = new Texture("gears.png");
+		BESTPLAYERS = new HashMap<String, Integer>();
 	}
 
 	//
