@@ -1,10 +1,8 @@
 package pl.xszym.flappygears.service;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.TreeMap;
 
 import com.badlogic.gdx.Gdx;
@@ -74,7 +72,10 @@ public class ScoreService {
 	public void addPlayerToScoreTable(String name, int team, int score) {
 		FlappeGears.BESTPLAYERS.put(name, score);
 		TreeMap<String, Integer> sortedMap = sortMapByValue(FlappeGears.BESTPLAYERS);
-		//System.err.println(sortedMap);
+		System.err.println(sortedMap);
+		SaveScoresToFile saveScoresToFile = new SaveScoresToFile();
+		//saveScoresToFile.save();
+		
 	}
 
 	public static TreeMap<String, Integer> sortMapByValue(HashMap<String, Integer> map) {
@@ -84,19 +85,6 @@ public class ScoreService {
 		TreeMap<String, Integer> result = new TreeMap<String, Integer>(comparator);
 		result.putAll(map);
 		
-		
-		String aggFileName = "agg-"+String.valueOf("06.txt");
-		FileWriter fstream = new FileWriter(aggFileName);
-		BufferedWriter out = new BufferedWriter(fstream);
-
-		for (TreeMap<String, Integer> result : sortMap.entrySet()) {
-		     System.out.println("Key = " + result.getKey() + ", Value = " + result.getValue()); //this statement prints out my keys and values
-		     out.write(result.getKey() + "\t" + result.getValue());
-		     System.out.println("Done");
-		     out.flush();   // Flush the buffer and write all changes to the disk
-		 }
-
-		out.close();    // Close the file
 		return result;
 	}
 
