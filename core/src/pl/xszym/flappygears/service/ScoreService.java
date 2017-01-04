@@ -10,7 +10,7 @@ import com.badlogic.gdx.Preferences;
 
 import pl.xszym.flappygears.FlappeGears;
 
-public class ScoreService {
+public class ScoreService  {
 
 	public final static String GAME_PREFS = "com.xszym.gamespicegears.prefs";
 	public final static String GAME_SCORE = "com.xszym.gamespicegears.prefs.score";
@@ -74,8 +74,8 @@ public class ScoreService {
 		TreeMap<String, Integer> sortedMap = sortMapByValue(FlappeGears.BESTPLAYERS);
 		System.err.println(sortedMap);
 		SaveScoresToFile saveScoresToFile = new SaveScoresToFile();
-		//saveScoresToFile.save();
-		
+		saveScoresToFile.save(sortedMap);
+		saveScoresToFile.load();
 	}
 
 	public static TreeMap<String, Integer> sortMapByValue(HashMap<String, Integer> map) {

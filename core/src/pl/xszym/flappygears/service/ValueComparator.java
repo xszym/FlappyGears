@@ -1,11 +1,12 @@
 package pl.xszym.flappygears.service;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.HashMap;
 
 import pl.xszym.flappygears.FlappeGears;
 
-class ValueComparator implements Comparator<String>{
+class ValueComparator implements Comparator<String>, Serializable{
 
 	HashMap<String, Integer> map = FlappeGears.BESTPLAYERS;
  
@@ -21,4 +22,6 @@ class ValueComparator implements Comparator<String>{
 			return 1;
 		}	
 	}
+
+
 }

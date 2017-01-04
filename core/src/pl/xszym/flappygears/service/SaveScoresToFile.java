@@ -13,42 +13,40 @@ import java.util.TreeMap;
 
 public class SaveScoresToFile {
 
-	public void save() {
+	public void save(TreeMap<String, Integer> treeMap) {
 		{
-			Map<String, String> hashmap = new HashMap<String, String>();
-			hashmap.put("key1", "value1");
-			hashmap.put("key2", "value2");
-			hashmap.put("key3", "value3");
-			hashmap.put("key4", "value4");
+			Map<String, Integer> hashmap = treeMap;
 
-			FileOutputStream fos;
 			try {
-				fos = new FileOutputStream("list.ser");
+				FileOutputStream fos = new FileOutputStream("list.ser");
 
 				ObjectOutputStream oos = new ObjectOutputStream(fos);
 				oos.writeObject(hashmap);
 				oos.close();
 
-				FileInputStream fis = new FileInputStream("list.ser");
-				ObjectInputStream ois = new ObjectInputStream(fis);
-				TreeMap<String, Integer> anotherList = (TreeMap<String, Integer>) ois.readObject();
-
-				ois.close();
-
-				System.out.println(anotherList);
-
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 		}
 	}
 
-	public void load() {
+	public TreeMap<String, Integer> load() {
+		try {
+			
+			FileInputStream fis = new FileInputStream("list.ser");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			TreeMap<String, Integer> anotherList = (TreeMap<String, Integer>) ois.readObject();
 
+			ois.close();
+
+			System.out.println(anotherList);
+			return anotherList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+		
 	}
 }
