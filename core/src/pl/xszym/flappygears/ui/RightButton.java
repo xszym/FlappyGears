@@ -21,7 +21,7 @@ public class RightButton extends Button {
 		this.setWidth(FlappeGears.WIDTH/2);
 		this.setHeight(FlappeGears.HEIGHT + 300);
 		this.setX(0);
-		this.setDebug(true);
+		this.setDebug(FlappeGears.setDebug);
 		
 		this.addListener(new ClickListener(){
 			@Override

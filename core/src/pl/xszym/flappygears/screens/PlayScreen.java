@@ -3,12 +3,12 @@ package pl.xszym.flappygears.screens;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
+
 import pl.xszym.flappygears.FlappeGears;
 import pl.xszym.flappygears.entities.Ground;
 import pl.xszym.flappygears.entities.Player;
 import pl.xszym.flappygears.entities.Tube;
 import pl.xszym.flappygears.entities.WallGear;
-import pl.xszym.flappygears.service.ScoreService;
 import pl.xszym.flappygears.ui.GameLabel;
 import pl.xszym.flappygears.ui.IClickCallback;
 import pl.xszym.flappygears.ui.LeftButton;
@@ -26,7 +26,7 @@ public class PlayScreen extends AbstractScreen {
 	private RightButton rButton;
 	private LeftButton lButton;
 	private Ground ground;
-	private ScoreService scoreService;
+//	private ScoreService scoreService;
 	private GameLabel scoreLabel;
 
 	private Array<Tube> tubes;
@@ -52,7 +52,9 @@ public class PlayScreen extends AbstractScreen {
 	}
 
 	public void lose() {
+		scoreService.chackBestScore();
 		game.setScreen(new GameOverScreen(game));
+		stage.dispose();
 	}
 
 	@Override
@@ -72,7 +74,7 @@ public class PlayScreen extends AbstractScreen {
 
 		updateButtonPosition();
 
-		createGears();
+		createTubes();
 
 		updateWalls();
 
@@ -105,12 +107,11 @@ public class PlayScreen extends AbstractScreen {
 		stage.addActor(ground);
 	}
 
-	private void createGears() {
+	private void createTubes() {
 		for (Tube tube : tubes) {
 			if (camera.position.y - (camera.viewportHeight / 2) > tube.getY() + tube.getHeight()) {
 				tube.reposition(tube.getY() + (Tube.TUBE_HEIGHT + TUBE_SPACING) * TUBE_COUNT);
 				scoreService.addPoint();
-				scoreService.saveCurrentGamestate();
 			}
 
 			if (tube.collides(player.getBoundsPlayer())) {
@@ -205,13 +206,13 @@ public class PlayScreen extends AbstractScreen {
 	}
 
 	private void updateScoreLabel() {
-		scoreLabel.setPosition(FlappeGears.WIDTH - 100,
+		scoreLabel.setPosition(FlappeGears.WIDTH - 210,
 				FlappeGears.HEIGHT - 50 + camera.position.y - (camera.viewportHeight / 2));
 		scoreLabel.setText("Points: " + scoreService.getPoints());
 	}
 
 	private void initScoreService() {
-		scoreService = new ScoreService();
+		
 		scoreService.resetGameScore();
 	}
 

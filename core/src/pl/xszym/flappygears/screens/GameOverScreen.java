@@ -2,64 +2,80 @@ package pl.xszym.flappygears.screens;
 
 import java.util.Random;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
 import pl.xszym.flappygears.FlappeGears;
-import pl.xszym.flappygears.service.ScoreService;
 import pl.xszym.flappygears.ui.GameLabel;
+import pl.xszym.flappygears.ui.IClickCallback;
+import pl.xszym.flappygears.ui.ReplayButton;
 
 public class GameOverScreen extends AbstractScreen {
 
 	private GameLabel gameOverScoreLabel;
-	private ScoreService scoreService;
+
+	private Image bg;
 	
 	public GameOverScreen(FlappeGears game) {
-		super(game);
-		
+		super(game);	
 	}
 
 	@Override
-	protected void init() {
+	protected void init() {	
 		
-		scoreService = new ScoreService();
+		stage.addActor(FlappeGears.bg);
 		
+		initGameOverBestScoreLabel();
 		initGameOverScoreLabel();
-		int i = new Random().nextInt();
-		scoreService.addPlayerToScoreTable("Player " + i, 5883 , scoreService.getPoints());
 		
+		int i = new Random().nextInt();
+		
+		scoreService.addPlayerToScoreTable("Player " + i, 5883 , scoreService.getPoints());	
+		initReplayButton();
 	}
-	
 
-	
 
 
 	@Override
 	public void render(float delta) {
-		
 		super.render(delta);
-		
-		initTouched();
 		
 		drawStage();
 		
 	}
 	
 	private void drawStage() {
+		
+
+		
 		spriteBatch.begin();
 		stage.draw();
 		spriteBatch.end();
 		
 	}
 
-	private void initTouched() {
-		if (Gdx.input.isTouched()) {
-			game.setScreen(new MenuScreen(game));
-		}
+	private void initReplayButton() {
+		ReplayButton replayButton = new ReplayButton(new IClickCallback() {
+			
+			@Override
+			public void onClick() {
+				game.setScreen(new PlayScreen(game));
+			}
+		});
+		stage.addActor(replayButton);
 	}
 	
 	private void initGameOverScoreLabel() {
 		gameOverScoreLabel = new GameLabel();
 		gameOverScoreLabel.setText("Your points: " + scoreService.getPoints());
-		gameOverScoreLabel.setPosition(FlappeGears.WIDTH/2 - 40,FlappeGears.HEIGHT/2);
+		gameOverScoreLabel.setPosition(FlappeGears.WIDTH/2 - 80,FlappeGears.HEIGHT/2 - 150);
 		stage.addActor(gameOverScoreLabel);
 	}
+	
+	private void initGameOverBestScoreLabel() {
+		gameOverScoreLabel = new GameLabel();
+		gameOverScoreLabel.setText("High score: " + scoreService.getBestScore());
+		gameOverScoreLabel.setPosition(FlappeGears.WIDTH/2 - 80,FlappeGears.HEIGHT/2 + 50 - 150);
+		stage.addActor(gameOverScoreLabel);	
+	}
+	
 }

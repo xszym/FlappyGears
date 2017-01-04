@@ -21,7 +21,7 @@ public class LeftButton extends Button {
 		this.setHeight(FlappeGears.HEIGHT + 300);
 		this.setX(FlappeGears.WIDTH / 2);
 		// this.setY(player.getPosition().y + PlayScreen.PLAYER_UP);
-		this.setDebug(true);
+		this.setDebug(FlappeGears.setDebug);
 		this.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {

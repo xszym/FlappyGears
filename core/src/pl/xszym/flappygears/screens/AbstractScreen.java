@@ -9,20 +9,22 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import pl.xszym.flappygears.FlappeGears;
+import pl.xszym.flappygears.service.ScoreService;
 
 public abstract class AbstractScreen implements Screen {
 
 	protected FlappeGears game;
-
+	protected ScoreService scoreService;
 	protected Stage stage;
 	protected OrthographicCamera camera;
 	protected SpriteBatch spriteBatch;
-	
+
 
 	public AbstractScreen(FlappeGears game) {
 		this.game = game;
 		createCamera();
 		stage = new Stage(new StretchViewport(FlappeGears.WIDTH, FlappeGears.HEIGHT, camera));
+		scoreService = new ScoreService();
 		
 		spriteBatch = new SpriteBatch();
 		Gdx.input.setInputProcessor(stage);

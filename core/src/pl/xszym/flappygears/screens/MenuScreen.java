@@ -1,12 +1,11 @@
 package pl.xszym.flappygears.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import pl.xszym.flappygears.FlappeGears;
+import pl.xszym.flappygears.ui.IClickCallback;
+import pl.xszym.flappygears.ui.ReplayButton;
 
 public class MenuScreen extends AbstractScreen {
 
-	private Texture bg;
 
 	public MenuScreen(FlappeGears game) {
 		super(game);
@@ -15,25 +14,35 @@ public class MenuScreen extends AbstractScreen {
 
 	@Override
 	protected void init() {
-		bg = new Texture("bg.jpg");
-
+		
+		stage.addActor(FlappeGears.bg);
+		
+		initTouched();
 	}
 
+
+
 	private void initTouched() {
-		if (Gdx.input.isTouched()) {
-			game.setScreen(new PlayScreen(game));
-		}
+		ReplayButton replayButton = new ReplayButton(new IClickCallback() {
+			
+			@Override
+			public void onClick() {
+				game.setScreen(new PlayScreen(game));
+				
+			}
+		});
+		stage.addActor(replayButton);
 	}
 
 	@Override
 	public void render(float delta) {
 
 		super.render(delta);
-		initTouched();
+		
 		spriteBatch.begin();
-		spriteBatch.draw(bg, 0, 0, FlappeGears.WIDTH, FlappeGears.HEIGHT);
+		stage.draw();
 		spriteBatch.end();
-
+		
 	}
 
 }

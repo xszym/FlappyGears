@@ -2,6 +2,7 @@ package pl.xszym.flappygears.entities;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
 import pl.xszym.flappygears.FlappeGears;
 
 public class WallGear extends Image {

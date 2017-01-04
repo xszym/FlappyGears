@@ -36,7 +36,7 @@ public class Player extends Image {
 		this.setOrigin(WIDHT / 2, HEIGHT / 2);
 		this.setSize(WIDHT, HEIGHT);
 	
-		boundsPlayer = new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight() - 30);
+		boundsPlayer = new Rectangle(this.getX() + 10, this.getY(), this.getWidth() - 30, this.getHeight() - 30);
 		
 		this.setDebug(FlappeGears.setDebug);
 		initVectors();
