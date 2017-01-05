@@ -17,22 +17,13 @@ public class MenuScreen extends AbstractScreen {
 		
 		stage.addActor(FlappeGears.bg);
 		
-		initTouched();
+		initHighScoreButton();
+		
+		initPlayButton();
 	}
 
 
-
-	private void initTouched() {
-		MyTextButton replayButton = new MyTextButton(new IClickCallback() {
-			
-			@Override
-			public void onClick() {
-				game.setScreen(new PlayScreen(game));
-				
-			}
-		}, "Play", FlappeGears.WIDTH / 2 - 50, 150);
-		stage.addActor(replayButton);
-	}
+	
 
 	@Override
 	public void render(float delta) {
@@ -44,5 +35,32 @@ public class MenuScreen extends AbstractScreen {
 		spriteBatch.end();
 		
 	}
+	
+	private void initHighScoreButton() {
+		
+		MyTextButton highScoreButton = new MyTextButton(new IClickCallback() {
+
+			@Override
+			public void onClick() {
+				game.setScreen(new HighScoreTableScreen(game));
+			}
+		}, "High \n Scores", FlappeGears.WIDTH - 150, FlappeGears.HEIGHT - 150);
+		stage.addActor(highScoreButton);
+		
+	}
+	
+	
+	private void initPlayButton() {
+		MyTextButton playButton = new MyTextButton(new IClickCallback() {
+			
+			@Override
+			public void onClick() {
+				game.setScreen(new PlayScreen(game));
+				
+			}
+		}, "Play", FlappeGears.WIDTH / 2 - 50, 150);
+		stage.addActor(playButton);
+	}
+
 
 }

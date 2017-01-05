@@ -39,7 +39,7 @@ public class GameOverScreen extends AbstractScreen {
 		if (name != null) {
 			scoreService.addPlayerToScoreTable(name, 5883, scoreService.getPoints());
 			name = null;
-			game.setScreen(new PlayScreen(game));
+			game.setScreen(new MenuScreen(game));
 		}
 
 		drawStage();
