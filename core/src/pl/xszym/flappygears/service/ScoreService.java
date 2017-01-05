@@ -1,6 +1,5 @@
 package pl.xszym.flappygears.service;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -10,7 +9,7 @@ import com.badlogic.gdx.Preferences;
 
 import pl.xszym.flappygears.FlappeGears;
 
-public class ScoreService  {
+public class ScoreService {
 
 	public final static String GAME_PREFS = "com.xszym.gamespicegears.prefs";
 	public final static String GAME_SCORE = "com.xszym.gamespicegears.prefs.score";
@@ -19,7 +18,7 @@ public class ScoreService  {
 	private int points;
 	private int bestScore;
 	private Preferences prefs;
-	
+
 	public ScoreService() {
 		init();
 	}
@@ -43,7 +42,7 @@ public class ScoreService  {
 		points = prefs.getInteger(GAME_SCORE);
 		return points;
 	}
-	
+
 	public int getBestScore() {
 		bestScore = prefs.getInteger(GAME_BESTSCORE);
 		return bestScore;
@@ -55,27 +54,37 @@ public class ScoreService  {
 	}
 
 	public void chackBestScore() {
-		
+
 		savePoints();
-		
-		if(points > getBestScore())
-		{
+
+		if (points > getBestScore()) {
 			prefs.putInteger(GAME_BESTSCORE, points);
 			prefs.flush();
 		} else {
-			
+
 		}
 	}
-	
-	
-	
+
 	public void addPlayerToScoreTable(String name, int team, int score) {
+		
 		FlappeGears.BESTPLAYERS.put(name, score);
+		
+//		int lastPlace = 9;
+//		if (FlappeGears.BESTPLAYERS.size() > lastPlace) {
+//			Integer value = (new ArrayList<Integer>(FlappeGears.BESTPLAYERS.values())).get(lastPlace);
+//			if (score > value) {
+//
+//				FlappeGears.BESTPLAYERS.put(name, score);
+//			}
+//		} else { }
+		
 		TreeMap<String, Integer> sortedMap = sortMapByValue(FlappeGears.BESTPLAYERS);
-		System.err.println(sortedMap);
+		
+		
 		SaveScoresToFile saveScoresToFile = new SaveScoresToFile();
 		saveScoresToFile.save(sortedMap);
-		saveScoresToFile.load();
+		System.err.println(saveScoresToFile.load());
+
 	}
 
 	public static TreeMap<String, Integer> sortMapByValue(HashMap<String, Integer> map) {
@@ -84,7 +93,6 @@ public class ScoreService  {
 		// The comparator is used to sort the TreeMap by keys.
 		TreeMap<String, Integer> result = new TreeMap<String, Integer>(comparator);
 		result.putAll(map);
-		
 		return result;
 	}
 

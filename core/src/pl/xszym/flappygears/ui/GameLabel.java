@@ -18,6 +18,6 @@ public class GameLabel extends Label{
 
 	private static LabelStyle prepareLabelStyle() {
 		
-		return FlappeGears.labelStyle;
+		return FlappeGears.labelStyle40;
 	}
 }

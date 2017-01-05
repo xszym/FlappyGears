@@ -5,17 +5,25 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import pl.xszym.flappygears.FlappeGears;
 
-public class ReplayButton extends Button {
+public class MyTextButton extends TextButton {
 	
-	public ReplayButton(final IClickCallback callback)
+	private int x;
+	private int y;
+	
+	public MyTextButton(final IClickCallback callback, String name, int x, int y)
 	{
-		super(prepareResetButtonStyles());
+		super(name ,prepareResetButtonStyles());
 
+		this.x = x;
+		this.y = y;
+		
 		init(callback);
+		
 	}
 
 	private void init(final IClickCallback callback)
@@ -23,8 +31,8 @@ public class ReplayButton extends Button {
 
 		this.setWidth(100);
 		this.setHeight(100);
-		this.setX(FlappeGears.WIDTH / 2 - 50);
-		this.setY(150);
+		this.setX(x);
+		this.setY(y);
 		//this.setDebug(true);
 
 		this.addListener(new ClickListener()
@@ -39,10 +47,12 @@ public class ReplayButton extends Button {
 		});
 	}
 	
-	private static ButtonStyle prepareResetButtonStyles(){
+	private static TextButtonStyle prepareResetButtonStyles(){
 		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("ui-red.atlas"));
 		Skin skin = new Skin(atlas);
-		ButtonStyle buttonstyle = new ButtonStyle();
+		TextButtonStyle buttonstyle = new TextButtonStyle();
+		buttonstyle.font = FlappeGears.labelStyle20.font;
+		buttonstyle.fontColor = FlappeGears.labelStyle20.fontColor;
 		buttonstyle.up = skin.getDrawable("button_02");
 		buttonstyle.down = skin.getDrawable("button_03");
 		return buttonstyle;

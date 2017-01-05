@@ -26,7 +26,6 @@ public class PlayScreen extends AbstractScreen {
 	private RightButton rButton;
 	private LeftButton lButton;
 	private Ground ground;
-//	private ScoreService scoreService;
 	private GameLabel scoreLabel;
 
 	private Array<Tube> tubes;
