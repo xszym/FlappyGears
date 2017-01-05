@@ -10,8 +10,7 @@ public class MyTextInputListener implements TextInputListener {
 	public void input(String text) {
 		// TODO Auto-generated method stub
 		teamAndName = text;
-		System.err.println(text);
-		System.err.println(teamAndName);
+		
 	}
 
 	@Override

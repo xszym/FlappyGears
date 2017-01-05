@@ -81,7 +81,7 @@ public class FlappeGears extends Game {
 		labelStyle20 = new LabelStyle();
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/HARNGTON.TTF"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-		parameter.size = 20;
+		parameter.size = 25;
 		parameter.borderColor = Color.BLACK;
 		parameter.borderWidth = 1;
 		BitmapFont steamPunkFont = generator.generateFont(parameter);

@@ -1,21 +1,20 @@
 package pl.xszym.flappygears.screens;
 
-import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.Input.TextInputListener;
 
 import pl.xszym.flappygears.FlappeGears;
 import pl.xszym.flappygears.ui.GameLabel;
 import pl.xszym.flappygears.ui.IClickCallback;
-import pl.xszym.flappygears.ui.MyTextInputListener;
 import pl.xszym.flappygears.ui.MyTextButton;
+import pl.xszym.flappygears.ui.MyTextInputListener;
 
 public class GameOverScreen extends AbstractScreen {
 
 	private GameLabel gameOverScoreLabel;
-
-	private Image bg;
+	private MyTextInputListener myTextInputListener;
+	private Boolean inNameInput;
+	private String name;
 
 	public GameOverScreen(FlappeGears game) {
 		super(game);
@@ -37,8 +36,14 @@ public class GameOverScreen extends AbstractScreen {
 	public void render(float delta) {
 		super.render(delta);
 
+		if (name != null) {
+			scoreService.addPlayerToScoreTable(name, 5883, scoreService.getPoints());
+			name = null;
+			game.setScreen(new PlayScreen(game));
+		}
+
 		drawStage();
-		
+
 	}
 
 	private void drawStage() {
@@ -66,18 +71,21 @@ public class GameOverScreen extends AbstractScreen {
 			@Override
 			public void onClick() {
 
-				MyTextInputListener myTextInputListener = new MyTextInputListener();
+				myTextInputListener = new MyTextInputListener();
 
-				Gdx.input.getTextInput(myTextInputListener, "Name", "", "Team numer + Name");
-				
-				if (myTextInputListener.getTeamAndName() == null){
-					
-				}	else {
-					scoreService.addPlayerToScoreTable(myTextInputListener.getTeamAndName(), 5883,
-							scoreService.getPoints());
-				}
-				
-				
+				Gdx.input.getTextInput(new TextInputListener() {
+
+					@Override
+					public void input(String text) {
+						name = text;
+						inNameInput = true;
+					}
+
+					@Override
+					public void canceled() {
+						inNameInput = false;
+					}
+				}, "Name", "", "Team numer + Name");
 
 			}
 		}, "Save \n Score", FlappeGears.WIDTH / 2 - 120, 150);

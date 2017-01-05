@@ -1,5 +1,6 @@
 package pl.xszym.flappygears.service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -67,6 +68,7 @@ public class ScoreService {
 
 	public void addPlayerToScoreTable(String name, int team, int score) {
 		
+		
 		FlappeGears.BESTPLAYERS.put(name, score);
 		
 //		int lastPlace = 9;
@@ -75,11 +77,11 @@ public class ScoreService {
 //			if (score > value) {
 //
 //				FlappeGears.BESTPLAYERS.put(name, score);
+//				FlappeGears.BESTPLAYERS.values().remove(lastPlace + 1);
 //			}
 //		} else { }
 		
 		TreeMap<String, Integer> sortedMap = sortMapByValue(FlappeGears.BESTPLAYERS);
-		
 		
 		SaveScoresToFile saveScoresToFile = new SaveScoresToFile();
 		saveScoresToFile.save(sortedMap);
