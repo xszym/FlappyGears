@@ -82,7 +82,6 @@ public class ScoreService {
 //		} else { }
 		
 		TreeMap<String, Integer> sortedMap = sortMapByValue(FlappeGears.BESTPLAYERS);
-		
 		SaveScoresToFile saveScoresToFile = new SaveScoresToFile();
 		saveScoresToFile.save(sortedMap);
 		System.err.println(saveScoresToFile.load());
