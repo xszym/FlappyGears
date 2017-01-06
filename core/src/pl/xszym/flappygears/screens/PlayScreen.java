@@ -1,5 +1,6 @@
 package pl.xszym.flappygears.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
@@ -51,7 +52,6 @@ public class PlayScreen extends AbstractScreen {
 	}
 
 	public void lose() {
-		scoreService.chackBestScore();
 		game.setScreen(new GameOverScreen(game));
 		stage.dispose();
 	}
@@ -61,9 +61,14 @@ public class PlayScreen extends AbstractScreen {
 		super.render(delta);
 
 		update(delta);
+		
+		checkComputerKeyPressed();
+		
 
 		drawStage();
 	}
+
+
 
 	private void update(float delta) {
 
@@ -141,6 +146,8 @@ public class PlayScreen extends AbstractScreen {
 
 	private void initButtons() {
 
+		
+		
 		rButton = new RightButton(new IClickCallback() {
 
 			@Override
@@ -218,5 +225,14 @@ public class PlayScreen extends AbstractScreen {
 	private void initScoreLabel() {
 		scoreLabel = new GameLabel();
 		stage.addActor(scoreLabel);
+	}
+	
+	private void checkComputerKeyPressed() {
+		if (Gdx.input.isKeyPressed(21)){
+			player.fly(-250, 350);
+		}
+		if (Gdx.input.isKeyPressed(22)){
+			player.fly(250, 350);
+		}
 	}
 }

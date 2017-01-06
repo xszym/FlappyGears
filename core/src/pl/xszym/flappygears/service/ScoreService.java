@@ -2,7 +2,8 @@ package pl.xszym.flappygears.service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.TreeMap;
 
 import com.badlogic.gdx.Gdx;
@@ -19,6 +20,8 @@ public class ScoreService {
 	private int points;
 	private int bestScore;
 	private Preferences prefs;
+	private SaveScoresToFile saveScoresToFile;
+	private TreeMap<String, Integer> sortedScoresMap;
 
 	public ScoreService() {
 		init();
@@ -26,6 +29,8 @@ public class ScoreService {
 
 	private void init() {
 		prefs = Gdx.app.getPreferences(GAME_PREFS);
+		saveScoresToFile = new SaveScoresToFile();
+		sortedScoresMap = sortMapByValue(FlappeGears.BESTPLAYERS);
 	}
 
 	public void addPoint() {
@@ -45,7 +50,9 @@ public class ScoreService {
 	}
 
 	public int getBestScore() {
-		bestScore = prefs.getInteger(GAME_BESTSCORE);
+
+		List<Integer> point = new ArrayList<Integer>(sortedScoresMap.values());
+		bestScore = point.get(0);
 		return bestScore;
 	}
 
@@ -54,47 +61,28 @@ public class ScoreService {
 		prefs.flush();
 	}
 
-	public void chackBestScore() {
-
-		savePoints();
-
-		if (points > getBestScore()) {
-			prefs.putInteger(GAME_BESTSCORE, points);
-			prefs.flush();
-		} else {
-
-		}
-	}
-
 	public void addPlayerToScoreTable(String name, int team, int score) {
-		
-		
 		FlappeGears.BESTPLAYERS.put(name, score);
-		
-//		int lastPlace = 9;
-//		if (FlappeGears.BESTPLAYERS.size() > lastPlace) {
-//			Integer value = (new ArrayList<Integer>(FlappeGears.BESTPLAYERS.values())).get(lastPlace);
-//			if (score > value) {
-//
-//				FlappeGears.BESTPLAYERS.put(name, score);
-//				FlappeGears.BESTPLAYERS.values().remove(lastPlace + 1);
-//			}
-//		} else { }
-		
-		TreeMap<String, Integer> sortedMap = sortMapByValue(FlappeGears.BESTPLAYERS);
-		SaveScoresToFile saveScoresToFile = new SaveScoresToFile();
-		saveScoresToFile.save(sortedMap);
-		System.err.println(saveScoresToFile.load());
-
+		sortAndSaveMap();
 	}
 
-	public static TreeMap<String, Integer> sortMapByValue(HashMap<String, Integer> map) {
+	public void sortAndSaveMap() {
+		sortedScoresMap = sortMapByValue(FlappeGears.BESTPLAYERS);
+		System.err.println("sorted Mapp" + sortedScoresMap);
+		saveScoresToFile.save(sortedScoresMap);
+	}
+
+	public static TreeMap<String, Integer> sortMapByValue(LinkedHashMap<String, Integer> map) {
 		Comparator<String> comparator = new ValueComparator(map);
 		// TreeMap is a map sorted by its keys.
 		// The comparator is used to sort the TreeMap by keys.
 		TreeMap<String, Integer> result = new TreeMap<String, Integer>(comparator);
 		result.putAll(map);
 		return result;
+	}
+
+	public TreeMap<String, Integer> getSortedMap() {
+		return sortedScoresMap;
 	}
 
 }

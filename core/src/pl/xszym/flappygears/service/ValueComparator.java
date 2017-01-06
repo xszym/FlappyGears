@@ -1,17 +1,17 @@
 package pl.xszym.flappygears.service;
 
-import java.io.Serializable;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import pl.xszym.flappygears.FlappeGears;
 
-class ValueComparator implements Comparator<String>, Serializable{
+class ValueComparator implements Comparator<String>{
 
-	HashMap<String, Integer> map = FlappeGears.BESTPLAYERS;
+	LinkedHashMap<String, Integer> map = FlappeGears.BESTPLAYERS;
  
-	public ValueComparator(HashMap<String, Integer> map){
+	public ValueComparator(LinkedHashMap<String, Integer> map){
 		this.map.putAll(map);
+		System.err.println("Value comparator" + map);
 	}
  
 	@Override

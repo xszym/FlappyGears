@@ -22,7 +22,6 @@ public class GameOverScreen extends AbstractScreen {
 
 	@Override
 	protected void init() {
-
 		stage.addActor(FlappeGears.bg);
 
 		initGameOverBestScoreLabel();
@@ -43,15 +42,12 @@ public class GameOverScreen extends AbstractScreen {
 		}
 
 		drawStage();
-
 	}
 
 	private void drawStage() {
-
 		spriteBatch.begin();
 		stage.draw();
 		spriteBatch.end();
-
 	}
 
 	private void initReplayButton() {

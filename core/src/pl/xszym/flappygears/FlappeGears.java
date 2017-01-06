@@ -54,9 +54,11 @@ public class FlappeGears extends Game {
 
 		if (saveScoresToFile.load() == null) {
 			BESTPLAYERS = new LinkedHashMap<String, Integer>();
-			BESTPLAYERS.put("Pierwszy gracz", 0);
+			BESTPLAYERS.put("Pierwszy gracz", 5);
+			
 		} else {
 			BESTPLAYERS = saveScoresToFile.load();
+
 		}
 	}
 
@@ -66,6 +68,7 @@ public class FlappeGears extends Game {
 	}
 
 	private void initLabelStyle40() {
+		
 		labelStyle40 = new LabelStyle();
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/HARNGTON.TTF"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
@@ -76,8 +79,10 @@ public class FlappeGears extends Game {
 		parameter.characters = FreeTypeFontGenerator.DEFAULT_CHARS;
 		labelStyle40.font = steamPunkFont;
 		generator.dispose();
+		
 	}
 	private void initLabelStyle20() {
+		
 		labelStyle20 = new LabelStyle();
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/HARNGTON.TTF"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
@@ -88,9 +93,11 @@ public class FlappeGears extends Game {
 		parameter.characters = FreeTypeFontGenerator.DEFAULT_CHARS;
 		labelStyle20.font = steamPunkFont;
 		generator.dispose();
+		
 	}
 
 	public void initBG() {
+		
 		bg = new Image(new Texture("bg.jpg"));
 		FlappeGears.bg.setX(0);
 		FlappeGears.bg.setY(0);
@@ -102,6 +109,7 @@ public class FlappeGears extends Game {
 	//
 	// getters and setters
 	//
+	
 	public boolean isPaused() {
 		return paused;
 	}
