@@ -32,9 +32,6 @@ public class HighScoreTableScreen extends AbstractScreen {
 		//SaveScoresToFile saveScoresToFile = new SaveScoresToFile();
 		//scoreService.sortAndSaveMap();
 		//saveScoresToFile.load();
-		System.err.println("High  get score service" + scoreService.getSortedMap());
-		System.err.println("High from game" + FlappeGears.BESTPLAYERS);
-		
 		TreeMap<String, Integer> hMap = scoreService.getSortedMap();
 		
 		

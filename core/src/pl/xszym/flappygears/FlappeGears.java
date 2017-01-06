@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
 import pl.xszym.flappygears.screens.MenuScreen;
-import pl.xszym.flappygears.service.SaveScoresToFile;
+import pl.xszym.flappygears.service.SaveScoresToPrefs;
 
 public class FlappeGears extends Game {
 
@@ -50,7 +50,7 @@ public class FlappeGears extends Game {
 	}
 
 	private void initScoreToFile() {
-		SaveScoresToFile saveScoresToFile = new SaveScoresToFile();
+		SaveScoresToPrefs saveScoresToFile = new SaveScoresToPrefs();
 
 		if (saveScoresToFile.load() == null) {
 			BESTPLAYERS = new LinkedHashMap<String, Integer>();

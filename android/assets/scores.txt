@@ -1,1 +1,0 @@
-{Simon=13, lol=7, Pierwszy gracz=5, dsadas=4, Siemnon=1}

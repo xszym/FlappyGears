@@ -5,41 +5,40 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 
-public class SaveScoresToFile  {
+public class SaveScoresToPrefs  {
 	
+	public final static String GAME_HIGHSCORES = "com.xszym.gamespicegears.prefs.highscores";
+	private Preferences prefs;
+	
+	public SaveScoresToPrefs() {
+		prefs = Gdx.app.getPreferences(ScoreService.GAME_PREFS);
+		
+	}
 
 	public void save(TreeMap<String, Integer> treeMap) {
 		{
 			Map<String, Integer> hashmap = treeMap;
-
-			try {
-				
-				String hashMapString = hashmap.toString();
-				System.err.println(hashMapString);
-				FileHandle file = Gdx.files.local("scores.txt");
-				file.writeString(hashMapString, false);
-
-//				FileOutputStream fos = new FileOutputStream("list.ser");
-//				ObjectOutputStream oos = new ObjectOutputStream(fos);
-//				oos.writeObject(hashmap);
-//				oos.close();
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
+			
+			String hashMapString = hashmap.toString();
+			FileHandle file = Gdx.files.local("scores.txt");
+			file.writeString(hashMapString, false);
+			
+			prefs.putString(GAME_HIGHSCORES, hashMapString);
+			prefs.flush();
 		}
 	}
 
 	public LinkedHashMap<String, Integer> load() {
 		
 		try {
-			FileHandle file = Gdx.files.internal("scores.txt");
-			String text = file.readString();
+			
+			String text = prefs.getString(GAME_HIGHSCORES);
 			text = text.replaceAll("\\{", "");
 			text = text.replaceAll("\\}", "");
+			text = text.replaceAll(" ", "");
 			
 			TreeMap<String, Integer> mapFromString = new TreeMap<String, Integer>();
 
@@ -60,7 +59,6 @@ public class SaveScoresToFile  {
 //			ois.close();
 //			LinkedHashMap<String, Integer> anotherList2 = new LinkedHashMap<String, Integer>(anotherList);
 			
-			System.err.println("load " + anotherList2);
 			
 			return anotherList2;
 		} catch (Exception e) {

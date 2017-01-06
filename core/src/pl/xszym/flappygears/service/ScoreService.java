@@ -17,10 +17,11 @@ public class ScoreService {
 	public final static String GAME_SCORE = "com.xszym.gamespicegears.prefs.score";
 	public final static String GAME_BESTSCORE = "com.xszym.gamespicegears.prefs.bestscore";
 
+
 	private int points;
 	private int bestScore;
 	private Preferences prefs;
-	private SaveScoresToFile saveScoresToFile;
+	private SaveScoresToPrefs saveScoresToFile;
 	private TreeMap<String, Integer> sortedScoresMap;
 
 	public ScoreService() {
@@ -29,7 +30,7 @@ public class ScoreService {
 
 	private void init() {
 		prefs = Gdx.app.getPreferences(GAME_PREFS);
-		saveScoresToFile = new SaveScoresToFile();
+		saveScoresToFile = new SaveScoresToPrefs();
 		sortedScoresMap = sortMapByValue(FlappeGears.BESTPLAYERS);
 	}
 
@@ -50,7 +51,6 @@ public class ScoreService {
 	}
 
 	public int getBestScore() {
-
 		List<Integer> point = new ArrayList<Integer>(sortedScoresMap.values());
 		bestScore = point.get(0);
 		return bestScore;
@@ -68,7 +68,6 @@ public class ScoreService {
 
 	public void sortAndSaveMap() {
 		sortedScoresMap = sortMapByValue(FlappeGears.BESTPLAYERS);
-		System.err.println("sorted Mapp" + sortedScoresMap);
 		saveScoresToFile.save(sortedScoresMap);
 	}
 
