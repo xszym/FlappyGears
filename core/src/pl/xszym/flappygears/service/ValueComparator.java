@@ -11,7 +11,6 @@ class ValueComparator implements Comparator<String>{
  
 	public ValueComparator(LinkedHashMap<String, Integer> map){
 		this.map.putAll(map);
-		System.err.println("Value comparator" + map);
 	}
  
 	@Override

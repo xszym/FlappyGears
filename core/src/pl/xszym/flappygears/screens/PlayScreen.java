@@ -1,7 +1,11 @@
 package pl.xszym.flappygears.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.btree.branch.Sequence;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 
@@ -116,6 +120,8 @@ public class PlayScreen extends AbstractScreen {
 			if (camera.position.y - (camera.viewportHeight / 2) > tube.getY() + tube.getHeight()) {
 				tube.reposition(tube.getY() + (Tube.TUBE_HEIGHT + TUBE_SPACING) * TUBE_COUNT);
 				scoreService.addPoint();
+				
+		        scoreLabel.addAction(Actions.scaleTo(500, 100, 4));
 			}
 
 			if (tube.collides(player.getBoundsPlayer())) {

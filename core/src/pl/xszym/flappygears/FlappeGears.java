@@ -7,7 +7,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -23,13 +22,13 @@ public class FlappeGears extends Game {
 	public static final String TITLE = "Flappy Steampunk FRC";
 	public static final boolean setDebug = false;
 
-	SpriteBatch batch;
 	Texture img;
 
 	private boolean paused;
 
 	public static Texture WALL_GEAR_PNG_TEKSTURA;
-	public static Texture TUBE_PNG_TEKSTURA;
+	public static Texture TUBE_PNG_TEKSTURA; 
+	public static Texture LOGO_PNG_TEKSTURA; 
 	public static LinkedHashMap<String, Integer> BESTPLAYERS;
 	public static Image bg;
 	public static LabelStyle labelStyle40;
@@ -65,6 +64,7 @@ public class FlappeGears extends Game {
 	private void initTexture() {
 		WALL_GEAR_PNG_TEKSTURA = new Texture("wallgear.png");
 		TUBE_PNG_TEKSTURA = new Texture("gears.png");
+		LOGO_PNG_TEKSTURA = new Texture("logo1.png");
 	}
 
 	private void initLabelStyle40() {

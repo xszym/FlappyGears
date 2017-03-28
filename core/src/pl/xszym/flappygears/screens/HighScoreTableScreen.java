@@ -20,12 +20,13 @@ public class HighScoreTableScreen extends AbstractScreen {
 	protected void init() {
 
 		stage.addActor(FlappeGears.bg);
-
+		
 		initMenuButton();
 
 		initScoreTable();
 
 	}
+
 
 	private void initScoreTable() {
 
@@ -70,7 +71,7 @@ public class HighScoreTableScreen extends AbstractScreen {
 			public void onClick() {
 				game.setScreen(new MenuScreen(game));
 			}
-		}, "Menu", FlappeGears.WIDTH - 150, FlappeGears.HEIGHT - 150);
+		}, "Menu", FlappeGears.WIDTH - 280, FlappeGears.HEIGHT - 150);
 		stage.addActor(menuButton);
 
 	}

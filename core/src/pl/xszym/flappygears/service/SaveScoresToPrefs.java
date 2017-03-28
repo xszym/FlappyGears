@@ -25,7 +25,8 @@ public class SaveScoresToPrefs  {
 			String hashMapString = hashmap.toString();
 			FileHandle file = Gdx.files.local("scores.txt");
 			file.writeString(hashMapString, false);
-			
+
+
 			prefs.putString(GAME_HIGHSCORES, hashMapString);
 			prefs.flush();
 		}
